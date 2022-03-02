@@ -63,7 +63,7 @@ Automatic management for clearing the memory from all objects from Young and Old
 `Garbage-First (G1) Garbage Collector` is selected by default on most system configurations. This collector is mostly 
 concurrent, it scales well and keeps garbage collection pauses short.
 
-### Manual selection of a garbage collector
+Manual selection of a garbage collector:
 
 1. Adjust the size of the heap space first.
 2. If that doesn't help, follow the [Oracle guidelines for selecting a collector](https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html#GUID-9E4A6B11-BB94-424F-90EF-401287A1C333):
@@ -80,7 +80,9 @@ are required;
 
 # Data structures
 
-## ArrayList
+## Lists
+
+`ArrayList`
 
 * when you need to store objects, have fast random access
 * not fixed size, grows by 50%
@@ -88,14 +90,16 @@ are required;
 * insertion order
 * duplicate values
 
-## LinkedList
+`LinkedList`
 
 * when you need to manipulate data
 * stores objects and references
 * insertion order
 * duplicate values
 
-## HashSet
+## Sets
+
+`HashSet`
 
 * when you want to create a set of unique values (counting, reports)
 * fail-fast iterator
@@ -103,11 +107,14 @@ are required;
 * not ordered
 * unique values
 
-## LinkedHashSet
-## TreeSet
-## HashMap
-## LinkedHashMap
-## TreeMap
+`LinkedHashSet`
+`TreeSet`
+
+##Maps
+
+`HashMap`
+`LinkedHashMap`
+`TreeMap`
 
 ## Time complexity matrix
 
