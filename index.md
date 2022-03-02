@@ -4,7 +4,8 @@ title: Home
 nav_order: 1
 ---
 
-Lorem ipsum dolor sit amet
+The rationale behind this project is to provide easy-to-digest answers to the most common questions that developers may 
+encounter during technical interviews.
 
 # Contents
 {:.no_toc}
@@ -12,10 +13,9 @@ Lorem ipsum dolor sit amet
 * TOC
 {:toc}
 
-# Header 1
+# How to use this repository
 
-Test 1
+The main table of contents points to general topics such as Java, time complexity, etc.
 
-# Header 2
-
-Test 2
+Each main topic has a dedicated table of contents that points to specific areas of interest, e.g. memory management in 
+Java.
