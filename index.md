@@ -19,3 +19,7 @@ The main table of contents points to general topics such as Java, time complexit
 
 Each main topic has a dedicated table of contents that points to specific areas of interest, e.g. memory management in 
 Java.
+
+You can use the search bar to search for specific topics:
+
+![search screenshot](assets/img/search-screenshot.png)
