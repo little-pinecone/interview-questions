@@ -5,10 +5,10 @@ nav_order: 2
 ---
 
 # Contents
-
 {:.no_toc}
 
-* TOC {:toc}d
+* TOC
+{:toc}
 
 # Memory management
 
