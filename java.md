@@ -18,7 +18,7 @@ JVM takes care of memory management leaving only some configuration decisions to
 
 These are the two memory spaces in JVM.
 
-### Stack
+`Stack`
 
 1. Created for each thread, therefore thread safe.
 2. Stores local variables, references to the objects on the heap, methods.
@@ -26,7 +26,7 @@ These are the two memory spaces in JVM.
 4. Easy, fast access.
 5. `StackOverFlowError` when resources are exhausted, the available memory can be configured with the `-Xss` option.
 
-### Heap
+`Heap`
 
 1. Created with an application, it's shared among all threads.
 2. Stores the objects and their fields.
@@ -40,13 +40,16 @@ options.
 
 Heap memory stores objects according to their age.
 
-1. `Young Generation`:
-* stores new objects;
-* if an object lives long enough it is promoted to Old Generation;
-* is cleared with `minor garbage collection`.
-2. `Old Generation`:
-* stores the objects promoted from Young Generation;
-* is cleared with `major garbage collection`.
+`Young Generation`
+
+1. Stores new objects.
+2. Is cleared with `minor garbage collection`.
+3. If an object lives long enough it is promoted to Old Generation.
+
+`Old Generation`
+
+1. Stores the objects promoted from Young Generation.
+2. Is cleared with `major garbage collection`.
 
 ## Metaspace
 
@@ -74,3 +77,52 @@ are required;
 
 * [How Java memory management works – a quick introduction](https://codesoapbox.dev/how-java-memory-management-works-a-quick-introduction/)
 * [Introduction to Garbage Collection Tuning](https://docs.oracle.com/en/java/javase/17/gctuning/introduction-garbage-collection-tuning.html#GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304)
+
+# Data structures
+
+## ArrayList
+
+* when you need to store objects, have fast random access
+* not fixed size, grows by 50%
+* allows nulls
+* insertion order
+* duplicate values
+
+## LinkedList
+
+* when you need to manipulate data
+* stores objects and references
+* insertion order
+* duplicate values
+
+## HashSet
+
+* when you want to create a set of unique values (counting, reports)
+* fail-fast iterator
+* allows nulls
+* not ordered
+* unique values
+
+## LinkedHashSet
+## TreeSet
+## HashMap
+## LinkedHashMap
+## TreeMap
+
+## Time complexity matrix
+
+| Method   | ArrayList                  | LinkedList                 | HashSet                    | LinkedHashSet              | TreeSet   |
+|:---------|:---------------------------|:---------------------------|:---------------------------|:---------------------------|:----------|
+| get      | *O(1)*{: .text-green-000 } | O(n)                       | -                          | *O(1)*{: .text-green-000 } | -         |
+| add      | O(n)                       | *O(1)*{: .text-green-000 } |                            |                            | O(log(n)) |
+| contains | O(n)                       |                            | *O(1)*{: .text-green-000 } |                            | O(log(n)) |
+| remove   |                            |                            |                            |                            | O(log(n)) |
+
+
+| Method         | HashMap | LinkedHashMap | TreeMap   |
+|:---------------|:--------|:--------------|:----------|
+| get            |         | O(1)          | O(log(n)) |
+| put            | O(1)    | O(1)          | O(log(n)) |
+| remove         | O(1)    | O(1)          | O(log(n)) |
+| contains key   | O(1)    | O(1)          | O(log(n)) |
+| contains value | O(1)    | O(1)          | O(log(n)) |
