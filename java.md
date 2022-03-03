@@ -95,6 +95,7 @@ Below you'll find the implementations of the collection interfaces
 * we control where in the list each element is inserted and can access elements by their index
 * fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `List.of()` and `List.copyOf` methods return unmodifiable sets
+* the `Collections.synchronizedList(...);` provides synchronization
 * general-purpose implementations: `ArrayList`, `LinkedList`
 * special-purpose implementations: `CopyOnWriteArrayList`
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
@@ -105,7 +106,6 @@ Below you'll find the implementations of the collection interfaces
 * permits null elements
 * resizable, the `ensureCapacity` method may reduce the amount of incremental reallocation
 * fail-fast iterator
-* the `Collections.synchronizedList(new ArrayList(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
 
 **LinkedList**
@@ -113,7 +113,6 @@ Below you'll find the implementations of the collection interfaces
 * optimized for data manipulation 
 * permits null elements
 * fail-fast iterator
-* the `Collections.synchronizedList(new LinkedList(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
 
 **CopyOnWriteArrayList**
@@ -134,10 +133,10 @@ Below you'll find the implementations of the collection interfaces
 | CopyOnWriteArrayList | O(n)                            | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
 
 (*) O(1) if a copy is not needed
-{: .fs-1 }
+{: .fs-2 }
 
 (**) O(n) if `add(index i)`
-{: .fs-1 }
+{: .fs-2 }
 
 ## Set
 
@@ -145,6 +144,7 @@ Below you'll find the implementations of the collection interfaces
 * unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
 * fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
+* * the `Collections.synchronizedSet(...);` provides synchronization
 * general-purpose implementations: `HashSet`, `LinkedHashSet`, `TreeSet`
 * special-purpose implementations: `EnumSet`, `CopyOnWriteArraySet`
 * concurrent implementations: `ConcurrentSkipListSet`
@@ -157,7 +157,6 @@ Below you'll find the implementations of the collection interfaces
 * don't set the initial capacity too high if iteration performance is important
 * useful for counting, reports
 * fail-fast iterator
-* the `Collections.synchronizedSet(new HashSet(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
 
 **LinkedHashSet**
@@ -166,7 +165,6 @@ Below you'll find the implementations of the collection interfaces
 * permits the null element
 * iteration times for this class are unaffected by capacity
 * fail-fast iterator
-* the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
 
 **TreeSet**
@@ -174,7 +172,6 @@ Below you'll find the implementations of the collection interfaces
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
 * element comparison is done using `compareTo()` method and not `equals` like in the Set interface
 * fail-fast iterator
-* the `Collections.synchronizedSortedSet(new TreeSet(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
 
 **EnumSet**
@@ -182,7 +179,6 @@ Below you'll find the implementations of the collection interfaces
 * all elements must come from a single enum type
 * doesn't permit the null element (`NullPointerException`)
 * very compact and efficient, operations are likely (though not guaranteed) to be much faster than their `HashSet` counterparts
-* the `Collections.synchronizedSet(EnumSet.noneOf(MyEnum.class));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html)
 
 **CopyOnWriteArraySet**
@@ -216,6 +212,7 @@ Below you'll find the implementations of the collection interfaces
 * fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * a map's contents can be viewed as a set of keys (`keySet`), collection of values (`values`), or set of key-value mappings (`entrySet`)
 * the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
+* the `Collections.synchronizedMap(...);` provides synchronization
 * general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
 * special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
 * concurrent implementations: `ConcurrentHashMap`, `ConcurrentSkipListMap`
@@ -228,7 +225,6 @@ Below you'll find the implementations of the collection interfaces
 * don't set the initial capacity too high if iteration performance is important
 * useful for counting by the key, local cache
 * fail-fast iterator
-* the `Collections.synchronizedMap(new HashMap(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
 
 **LinkedHashMap**
@@ -236,7 +232,6 @@ Below you'll find the implementations of the collection interfaces
 * insertion order
 * in access-ordered linked hash maps, merely querying the map with `get` is a structural modification and affects iteration order
 * fail-fast iterator
-* the `Collections.synchronizedMap(new LinkedHashMap(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html)
 
 **TreeMap**
@@ -244,7 +239,6 @@ Below you'll find the implementations of the collection interfaces
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
 * element comparison is done using `compareTo()` method and not `equals` like in the Set interface
 * fail-fast iterator
-* the `Collections.synchronizedSortedMap(new TreeMap(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
 
 **EnumMap**
@@ -254,8 +248,20 @@ Below you'll find the implementations of the collection interfaces
 * doesn't permit null keys (`NullPointerException`), permits null values
 * very compact and efficient
 * weakly consistent iterator
-* the `Collections.synchronizedMap(new EnumMap<EnumKey, V>(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html)
+
+**IdentityHashMap**
+
+* intentionally violates Map's general contract, designed for use only in the rare cases wherein reference-equality semantics are required
+* a typical use of this class is topology-preserving object graph transformations (e.g. serialization or deep-copying)
+or maintaining proxy objects (e.g. maintaining a proxy object for each object in the program being debugged)
+* fail-fast iterator
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/IdentityHashMap.html)
+
+**WeakHashMap**
+
+* an entry will automatically be removed when its key is no longer in ordinary use
+*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/WeakHashMap.html)
 
 **Time complexity**
 
