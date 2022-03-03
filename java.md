@@ -110,8 +110,9 @@ Below you'll find the implementations of the collection interfaces
 
 **LinkedList**
 
-* optimized for data manipulation 
+* optimized for data manipulation (inserting and deleting elements)
 * permits null elements
+* when accessed through the Queue interface, acts as a FIFO queue
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
 
@@ -298,20 +299,44 @@ for locking the entire table in a way that prevents all access
 | ConcurrentHashMap     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Tables               |
 | ConcurrentSkipListMap | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | Skip List                 |
 
-## Queue and Deque
+## Queue and Dequeue
+
+* Queue: usually FIFO, whatever the ordering used, the head of the queue is the element that would be removed by a call to remove or poll
+* Dequeue: both FIFO or LIFO, all new elements can be inserted, retrieved and removed at both ends
+* general-purpose implementations: `PriorityQueue`, `ArrayDeque`, `LinkedList`
+* concurrent implementations: `ConcurrentLinkedQueue`, `LinkedBlockingQueue`, `ArrayBlockingQueue`, 
+`PriorityBlockingQueue`, `DelayQueue`. `SynchronousQueue`, `LinkedBlockingDeque`, `LinkedTransferQueue`
+* [Queue javadoc](https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html), [Dequeue javadoc](https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html)
+
+**PriorityQueue**
+
+* heap implementation of an unbounded priority queue
+* not ordered, use `Arrays.sort(pq.toArray())` if you need ordered traversal
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* doesn't permit the null element
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/PriorityQueue.html)
+
+**ArrayDeque**
+
+* efficient, resizable array implementation of the Deque interface
+* has no capacity restrictions, grows as necessary to support usage
+* doesn't permit the null element
+* faster than `Stack` when used as a stack, faster than `LinkedList` when used as a queue
+* fail-fast iterator
+*  [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayDeque.html)
 
 **Time complexity matrix**
 
 | Queue                 | offer()                        | peek()                     | poll()                         | remove()                   | size()                     | Underlying data structure |
 |:----------------------|:-------------------------------|:---------------------------|:-------------------------------|:---------------------------|:---------------------------|:--------------------------|
-| PriorityQueue         | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | *O(log(n))*{: .text-blue-000 } | O(n)                       | *O(1)*{: .text-green-000 } | Priority Heap             |
 | LinkedList            | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 } | Array                     |
+| PriorityQueue         | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | *O(log(n))*{: .text-blue-000 } | O(n)                       | *O(1)*{: .text-green-000 } | Priority Heap             |
 | ArrayDequeue          | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | Linked List               |
 | ConcurrentLinkedQueue | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | O(n)                       | Linked List               |
+| LinkedBlockingQueue   | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | Linked List               |
 | ArrayBlockingQueue    | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | Array                     |
 | PriorityBlockingQueue | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | *O(log(n))*{: .text-blue-000 } | O(n)                       | *O(1)*{: .text-green-000 } | Priority Heap             |
-| SynchronousQueue      | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | None!                     |
 | DelayQueue            | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | *O(log(n))*{: .text-blue-000 } | O(n)                       | *O(1)*{: .text-green-000 } | Priority Heap             |
-| LinkedBlockingQueue   | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | Linked List               |
+| SynchronousQueue      | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | None!                     |
 
 # Generics
