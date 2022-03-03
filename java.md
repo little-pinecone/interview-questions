@@ -97,134 +97,35 @@ Below you'll find the implementations of the collection interfaces
 * the `List.of()` and `List.copyOf` methods return unmodifiable sets
 * general-purpose implementations: `ArrayList`, `LinkedList`
 * special-purpose implementations: `CopyOnWriteArrayList`
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
 
-`ArrayList`
+**ArrayList**
 
 * optimized for storing objects, fast random access
 * permits null elements
 * resizable, the `ensureCapacity` method may reduce the amount of incremental reallocation
 * fail-fast iterator
 * the `Collections.synchronizedList(new ArrayList(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
 
-`LinkedList`
+**LinkedList**
 
 * optimized for data manipulation 
 * permits null elements
 * fail-fast iterator
 * the `Collections.synchronizedList(new LinkedList(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
 
-`CopyOnWriteArrayList`
+**CopyOnWriteArrayList**
 
 * a thread-safe variant of `ArrayList`
 * performant if read-only operations vastly outnumber mutative operations and the set size stays small
 * we iterate over an immutable snapshot of the content
 * the iterator won't reflect changes to the list since the iterator was created
 * all mutative operations are implemented by making a fresh copy
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html)
 
-### Set
-
-* unique values
-* unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
-* the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
-* general-purpose implementations: `HashSet`, `LinkedHashSet`, `TreeSet`
-* special-purpose implementations: `EnumSet`, `CopyOnWriteArraySet`
-* concurrent implementations: `ConcurrentSkipListSet`
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
-
-`HashSet`
-
-* not ordered
-* permits the null element
-* don't set the initial capacity too high if iteration performance is important
-* useful for counting, reports
-* fail-fast iterator
-* the `Collections.synchronizedSet(new HashSet(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
-
-`LinkedHashSet`
-
-* insertion order
-* permits the null element
-* iteration times for this class are unaffected by capacity
-* fail-fast iterator
-* the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
-
-`TreeSet`
-
-* elements are ordered using their natural ordering, or by a Comparator provided at creation time
-* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
-* fail-fast iterator
-* the `Collections.synchronizedSortedSet(new TreeSet(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
-
-`EnumSet`
-
-* all elements must come from a single enum type
-* doesn't permit the null element (`NullPointerException`)
-* very compact and efficient, operations are likely (though not guaranteed) to be much faster than their `HashSet` counterparts
-* the `Collections.synchronizedSet(EnumSet.noneOf(MyEnum.class));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html)
-
-`CopyOnWriteArraySet`
-
-* uses an internal `CopyOnWriteArrayList` for all of its operations. Thus, it shares the same basic properties.
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArraySet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArraySet.html)
-
-`ConcurrentSkipListSet`
-
-* insertion, removal, and access operations safely execute concurrently by multiple threads
-* elements are ordered using their natural ordering, or by a Comparator provided at creation time
-* doesn't permit the null element
-* iterating in ascending order is faster that in descending order
-*[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
-
-### Map
-
-* unique keys
-* unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
-* a map's contents can be viewed as a set of keys, collection of values, or set of key-value mappings
-* the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
-* general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
-* special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
-* concurrent implementations: `ConcurrentHashMap`, `ConcurrentSkipListMap`
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html)
-
-`HashMap`
-
-* not ordered
-* permits null values and null key
-* don't set the initial capacity too high if iteration performance is important
-* useful for counting by the key, local cache
-* fail-fast iterator
-* the `Collections.synchronizedMap(new HashMap(...));` provides synchronization
-* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
-
-`LinkedHashMap`
-
-* insertion order
-* in access-ordered linked hash maps, merely querying the map with `get` is a structural modification and affects iteration order
-* fail-fast iterator
-* the `Collections.synchronizedMap(new LinkedHashMap(...));` provides synchronization
-*[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html)
-
-`TreeMap`
-
-* elements are ordered using their natural ordering, or by a Comparator provided at creation time
-* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
-* fail-fast iterator
-* the `Collections.synchronizedSortedMap(new TreeMap(...));` provides synchronization
-*[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
-
-## Time complexity matrix
-
-Wide tables have a horizontal scroll to access columns outside the normal viewport.
+**Time complexity**
 
 | List                 | add()                           | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
 |:---------------------|:--------------------------------|:---------------------------|:---------------------------|:-----------|:---------------------------|:--------------------------|
@@ -236,14 +137,130 @@ Wide tables have a horizontal scroll to access columns outside the normal viewpo
 
 (**) O(n) if `add(index i)`
 
+### Set
+
+* unique values
+* unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
+* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
+* the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
+* general-purpose implementations: `HashSet`, `LinkedHashSet`, `TreeSet`
+* special-purpose implementations: `EnumSet`, `CopyOnWriteArraySet`
+* concurrent implementations: `ConcurrentSkipListSet`
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
+
+**HashSet**
+
+* not ordered
+* permits the null element
+* don't set the initial capacity too high if iteration performance is important
+* useful for counting, reports
+* fail-fast iterator
+* the `Collections.synchronizedSet(new HashSet(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
+
+**LinkedHashSet**
+
+* insertion order
+* permits the null element
+* iteration times for this class are unaffected by capacity
+* fail-fast iterator
+* the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
+
+**TreeSet**
+
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
+* fail-fast iterator
+* the `Collections.synchronizedSortedSet(new TreeSet(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
+
+**EnumSet**
+
+* all elements must come from a single enum type
+* doesn't permit the null element (`NullPointerException`)
+* very compact and efficient, operations are likely (though not guaranteed) to be much faster than their `HashSet` counterparts
+* the `Collections.synchronizedSet(EnumSet.noneOf(MyEnum.class));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html)
+
+**CopyOnWriteArraySet**
+
+* uses an internal `CopyOnWriteArrayList` for all of its operations. Thus, it shares the same basic properties.
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArraySet.html)
+
+**ConcurrentSkipListSet**
+
+* insertion, removal, and access operations safely execute concurrently by multiple threads
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* doesn't permit the null element
+* iterating in ascending order is faster that in descending order
+*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
+
+**Time complexity**
+
 | Set                   | add()                          | remove()                       | contains()                     | next()                         | size()                     | Underlying data structure                                                         |
 |:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:-------------------------------|:---------------------------|:----------------------------------------------------------------------------------|
 | HashSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h/n)                         | *O(1)*{: .text-green-000 } | Hash Map                                                                          |
 | LinkedHashSet         | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Hash Table + Linked List                                                          |
-| EnumSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Bit Vector                                                                        |
 | TreeSet               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | [Red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)            |
+| EnumSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Bit Vector                                                                        |
 | CopyOnWriteArraySet   | O(n)                           | O(n)                           | O(n)                           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | CopyOnWriteArrayList                                                              |
 | ConcurrentSkipListSet | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | ConcurrentSkipListMap                                                             |
+
+### Map
+
+* unique keys
+* unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
+* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
+* a map's contents can be viewed as a set of keys, collection of values, or set of key-value mappings
+* the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
+* general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
+* special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
+* concurrent implementations: `ConcurrentHashMap`, `ConcurrentSkipListMap`
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html)
+
+**HashMap**
+
+* not ordered
+* permits null values and null key
+* don't set the initial capacity too high if iteration performance is important
+* useful for counting by the key, local cache
+* fail-fast iterator
+* the `Collections.synchronizedMap(new HashMap(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
+
+**LinkedHashMap**
+
+* insertion order
+* in access-ordered linked hash maps, merely querying the map with `get` is a structural modification and affects iteration order
+* fail-fast iterator
+* the `Collections.synchronizedMap(new LinkedHashMap(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html)
+
+**TreeMap**
+
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
+* fail-fast iterator
+* the `Collections.synchronizedSortedMap(new TreeMap(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
+
+**Time complexity**
+
+| Map                   | get()                          | containsKey()                  | next()                         | Underlying data structure |
+|:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:--------------------------|
+| HashMap               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Table                |
+| LinkedHashMap         | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | Hash Table + Linked List  |
+| TreeMap               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | Red-black tree            |
+| EnumMap               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | Array                     |
+| IdentityHashMap       | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Array                     |
+| WeakHashMap           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Table                |
+| ConcurrentHashMap     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Tables               |
+| ConcurrentSkipListMap | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | Skip List                 |
+
+### Queue and Deque
+
+**Time complexity matrix**
 
 | Queue                 | offer()                        | peek()                     | poll()                         | remove()                   | size()                     | Underlying data structure |
 |:----------------------|:-------------------------------|:---------------------------|:-------------------------------|:---------------------------|:---------------------------|:--------------------------|
@@ -256,16 +273,5 @@ Wide tables have a horizontal scroll to access columns outside the normal viewpo
 | SynchronousQueue      | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | None!                     |
 | DelayQueue            | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | *O(log(n))*{: .text-blue-000 } | O(n)                       | *O(1)*{: .text-green-000 } | Priority Heap             |
 | LinkedBlockingQueue   | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | Linked List               |
-
-| Map                   | get()                          | containsKey()                  | next()                         | Underlying data structure |
-|:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:--------------------------|
-| HashMap               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Table                |
-| LinkedHashMap         | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | Hash Table + Linked List  |
-| IdentityHashMap       | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Array                     |
-| WeakHashMap           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Table                |
-| EnumMap               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | Array                     |
-| TreeMap               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | Red-black tree            |
-| ConcurrentHashMap     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Tables               |
-| ConcurrentSkipListMap | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | Skip List                 |
 
 # Generics
