@@ -88,7 +88,7 @@ implementation to make sure you won't get `UnsupportedOperationException` by cal
 
 Below you'll find the implementations of the collection interfaces
 
-### List
+## List
 
 * insertion order
 * duplicate values allowed
@@ -137,7 +137,7 @@ Below you'll find the implementations of the collection interfaces
 
 (**) O(n) if `add(index i)`
 
-### Set
+## Set
 
 * unique values
 * unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
@@ -207,7 +207,7 @@ Below you'll find the implementations of the collection interfaces
 | CopyOnWriteArraySet   | O(n)                           | O(n)                           | O(n)                           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | CopyOnWriteArrayList                                                              |
 | ConcurrentSkipListSet | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | ConcurrentSkipListMap                                                             |
 
-### Map
+## Map
 
 * unique keys
 * unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
@@ -258,7 +258,7 @@ Below you'll find the implementations of the collection interfaces
 | ConcurrentHashMap     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Tables               |
 | ConcurrentSkipListMap | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | Skip List                 |
 
-### Queue and Deque
+## Queue and Deque
 
 **Time complexity matrix**
 
