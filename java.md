@@ -261,7 +261,29 @@ or maintaining proxy objects (e.g. maintaining a proxy object for each object in
 **WeakHashMap**
 
 * an entry will automatically be removed when its key is no longer in ordinary use
-*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/WeakHashMap.html)
+* fail-fast iterator
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/WeakHashMap.html)
+
+**ConcurrentHashMap**
+
+*Speedups for parallel compared to sequential forms are common but not guaranteed. 
+Parallel operations involving brief functions on small maps may execute more slowly than sequential forms if the 
+underlying work to parallelize the computation is more expensive than the computation itself. 
+Similarly, parallelization may not lead to much actual parallelism if all processors are busy performing unrelated tasks.*
+
+* even though all operations are thread-safe, retrieval operations do not entail locking, and there is not any support 
+for locking the entire table in a way that prevents all access
+* all arguments to all task methods must be non-null
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html)
+
+**ConcurrentSkipListMap**
+
+* insertion, removal, update and access operations safely execute concurrently by multiple threads
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* doesn't permit null keys or values
+* iterating keys in ascending order is faster that in descending order
+* weakly consistent iterator
+*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListMap.html)
 
 **Time complexity**
 
