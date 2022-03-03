@@ -214,7 +214,7 @@ Below you'll find the implementations of the collection interfaces
 * unique keys
 * unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
 * fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
-* a map's contents can be viewed as a set of keys, collection of values, or set of key-value mappings
+* a map's contents can be viewed as a set of keys (`keySet`), collection of values (`values`), or set of key-value mappings (`entrySet`)
 * the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
 * general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
 * special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
@@ -246,6 +246,16 @@ Below you'll find the implementations of the collection interfaces
 * fail-fast iterator
 * the `Collections.synchronizedSortedMap(new TreeMap(...));` provides synchronization
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
+
+**EnumMap**
+
+* all keys must come from a single enum type
+* maps are maintained in the natural order of their keys (the order in which the enum constants are declared)
+* doesn't permit null keys (`NullPointerException`), permits null values
+* very compact and efficient
+* weakly consistent iterator
+* the `Collections.synchronizedMap(new EnumMap<EnumKey, V>(...));` provides synchronization
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EnumSet.html)
 
 **Time complexity**
 
