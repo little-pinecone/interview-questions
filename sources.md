@@ -11,3 +11,5 @@ Below are given notable sources from which data was gathered:
 * [Array Sorting Algorithms](https://www.bigocheatsheet.com/) table
 * [Runtime Complexity of Java Collections](https://gist.github.com/psayre23/c30a821239f4818b0709) gist
 * [Outline of the Java Collections Framework](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/doc-files/coll-reference.html)
+* [Official Java tutorial on Collection Interfaces](https://docs.oracle.com/javase/tutorial/collections/interfaces/index.html)
+* [Official Java tutorial on Generics](https://docs.oracle.com/javase/tutorial/java/generics/index.html)

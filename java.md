@@ -86,14 +86,17 @@ General facts:
 3. The modification operations in each interface are designated optional. Consult documentation of the selected 
 implementation to make sure you won't get `UnsupportedOperationException` by calling a method that isn't implemented. 
 
-Below you'll find the primary implementations of the collection interfaces
+Below you'll find the implementations of the collection interfaces
 
 ### List
 
 * insertion order
 * duplicate values allowed
 * we control where in the list each element is inserted and can access elements by their index
+* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `List.of()` and `List.copyOf` methods return unmodifiable sets
+* general-purpose implementations: `ArrayList`, `LinkedList`
+* special-purpose implementations: `CopyOnWriteArrayList`
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
 
 `ArrayList`
@@ -101,7 +104,7 @@ Below you'll find the primary implementations of the collection interfaces
 * optimized for storing objects, fast random access
 * permits null elements
 * resizable, the `ensureCapacity` method may reduce the amount of incremental reallocation
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
+* fail-fast iterator
 * the `Collections.synchronizedList(new ArrayList(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html)
 
@@ -109,7 +112,7 @@ Below you'll find the primary implementations of the collection interfaces
 
 * optimized for data manipulation 
 * permits null elements
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
+* fail-fast iterator
 * the `Collections.synchronizedList(new LinkedList(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
 
@@ -128,6 +131,9 @@ Below you'll find the primary implementations of the collection interfaces
 * unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
 * fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
+* general-purpose implementations: `HashSet`, `LinkedHashSet`, `TreeSet`
+* special-purpose implementations: `EnumSet`, `CopyOnWriteArraySet`
+* concurrent implementations: `ConcurrentSkipListSet`
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
 
 `HashSet`
@@ -136,6 +142,7 @@ Below you'll find the primary implementations of the collection interfaces
 * permits the null element
 * don't set the initial capacity too high if iteration performance is important
 * useful for counting, reports
+* fail-fast iterator
 * the `Collections.synchronizedSet(new HashSet(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
 
@@ -145,6 +152,7 @@ Below you'll find the primary implementations of the collection interfaces
 * permits the null element
 * iteration times for this class are unaffected by capacity
 * useful when we need to keep insertion order of the elements
+* fail-fast iterator
 * the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
 
@@ -152,6 +160,7 @@ Below you'll find the primary implementations of the collection interfaces
 
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
 * element comparison is done using `compareTo()` method and not `equals` like in the Set interface
+* fail-fast iterator
 * the `Collections.synchronizedSortedSet(new TreeSet(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
 
@@ -170,6 +179,7 @@ Below you'll find the primary implementations of the collection interfaces
 
 `ConcurrentSkipListSet`
 
+* insertion, removal, and access operations safely execute concurrently by multiple threads
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
 * doesn't permit the null element
 * iterating in ascending order is faster that in descending order
@@ -177,9 +187,26 @@ Below you'll find the primary implementations of the collection interfaces
 
 ### Map
 
+* unique keys
+* unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
+* a map's contents can be viewed as a set of keys, collection of values, or set of key-value mappings
+* the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
+* general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
+* special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
+* concurrent implementations: `ConcurrentHashMap`, `ConcurrentSkipListMap`
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html)
+
 `HashMap`
+
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
+
 `LinkedHashMap`
+
+*[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html)
+
 `TreeMap`
+
+*[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
 
 ## Time complexity matrix
 
@@ -226,3 +253,5 @@ Wide tables have a horizontal scroll to access columns outside the normal viewpo
 | TreeMap               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | Red-black tree            |
 | ConcurrentHashMap     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h / n)                       | Hash Tables               |
 | ConcurrentSkipListMap | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | Skip List                 |
+
+# Generics
