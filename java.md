@@ -73,39 +73,79 @@ Manual selection of a garbage collector:
 are required;
 * `fully concurrent` collector when response time is a high priority.
 
-# Data structures
+# Collections
 
-## Lists
+The core collection interfaces are shown in the image below:
+
+![core collection interfaces screenshot](assets/img/core-collection-interfaces.png)
+
+General facts:
+
+1. Note, that a `Map` is not a *true* `Collection`. However, it's generally discussed among other collections for the sake of simplicity.
+2. Collection interfaces are `generic`. Therefore, we should specify the type of object contained in the collection we're declaring.
+3. The modification operations in each interface are designated optional. Consult documentation of the selected 
+implementation to make sure you won't get `UnsupportedOperationException` by calling a method that isn't implemented. 
+
+Below you'll find the primary implementations of the collection interfaces
+
+### List
+
+* insertion order
+* duplicate values allowed
 
 `ArrayList`
 
-* when you need to store objects, have fast random access
+* optimized for storing objects, fast random access
 * not fixed size, grows by 50%
 * allows nulls
-* insertion order
-* duplicate values
 
 `LinkedList`
 
-* when you need to manipulate data
+* optimized for data manipulation 
 * stores objects and references
-* insertion order
-* duplicate values
 
-## Sets
+`CopyOnWriteArrayList`
+
+* a thread-safe variant of `ArrayList`, useful when we can't have or don't need synchronization
+* performant if iterations happen more often than modifications
+* we iterate over an immutable snapshot of the content
+* the iterator won't reflect changes to the list since the iterator was created
+* all mutative operations are implemented by making a fresh copy
+
+### Set
+
+* unique values
+* unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
+* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
+* the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
 
 `HashSet`
 
-* when you want to create a set of unique values (counting, reports)
-* fail-fast iterator
-* allows nulls
 * not ordered
-* unique values
+* permits the null element
+* don't set the initial capacity too high if iteration performance is important
+* useful for counting, reports
+* the `Collections.synchronizedSet(new HashSet(...));` provides synchronization
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html)
 
 `LinkedHashSet`
+
+* insertion order
+* permits the null element
+* iteration times for this class are unaffected by capacity
+* useful when we need to keep insertion order of the elements
+* the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
+
 `TreeSet`
 
-##Maps
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
+* the `Collections.synchronizedSortedSet(new TreeSet(...));` provides synchronization
+* [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
+
+### Map
 
 `HashMap`
 `LinkedHashMap`
@@ -113,20 +153,24 @@ are required;
 
 ## Time complexity matrix
 
-| List                 | add()                      | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
-|:---------------------|:---------------------------|:---------------------------|:---------------------------|:-----------|:---------------------------|:--------------------------|
-| ArrayList            | *O(1)*{: .text-green-000 } | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
-| LinkedList           | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 } | O(n)                       | O(n)       | *O(1)*{: .text-green-000 } | Linked List               |
-| CopyOnWriteArrayList | O(n)                       | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
+| List                 | add()                           | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
+|:---------------------|:--------------------------------|:---------------------------|:---------------------------|:-----------|:---------------------------|:--------------------------|
+| ArrayList            | O(n) (*)                        | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
+| LinkedList           | *O(1)*{: .text-green-000 } (**) | *O(1)*{: .text-green-000 } | O(n)                       | O(n)       | *O(1)*{: .text-green-000 } | Linked List               |
+| CopyOnWriteArrayList | O(n)                            | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
 
-| Set                   | add()                          | remove()                       | contains()                     | next()                         | size()                     | Underlying data structure |
-|:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:-------------------------------|:---------------------------|:--------------------------|
-| HashSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h/n)                         | *O(1)*{: .text-green-000 } | Hash Table                |
-| LinkedHashSet         | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Hash Table + Linked List  |
-| EnumSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Bit Vector                |
-| TreeSet               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | Red-black tree            |
-| CopyOnWriteArraySet   | O(n)                           | O(n)                           | O(n)                           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Array                     |
-| ConcurrentSkipListSet | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | Skip List                 |
+(*) O(1) if a copy is not needed
+
+(**) O(n) if `add(index i)`
+
+| Set                   | add()                          | remove()                       | contains()                     | next()                         | size()                     | Underlying data structure                                              |
+|:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:-------------------------------|:---------------------------|:-----------------------------------------------------------------------|
+| HashSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | O(h/n)                         | *O(1)*{: .text-green-000 } | Hash Map                                                               |
+| LinkedHashSet         | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Hash Table + Linked List                                               |
+| EnumSet               | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Bit Vector                                                             |
+| TreeSet               | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 } | [Red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree) |
+| CopyOnWriteArraySet   | O(n)                           | O(n)                           | O(n)                           | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | Array                                                                  |
+| ConcurrentSkipListSet | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(log(n))*{: .text-blue-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | Skip List                                                              |
 
 | Queue                 | offer()                        | peek()                     | poll()                         | remove()                   | size()                     | Underlying data structure |
 |:----------------------|:-------------------------------|:---------------------------|:-------------------------------|:---------------------------|:---------------------------|:--------------------------|
