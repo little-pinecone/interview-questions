@@ -151,7 +151,6 @@ Below you'll find the implementations of the collection interfaces
 * insertion order
 * permits the null element
 * iteration times for this class are unaffected by capacity
-* useful when we need to keep insertion order of the elements
 * fail-fast iterator
 * the `Collections.synchronizedSet(new LinkedHashSet(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashSet.html)
@@ -189,6 +188,7 @@ Below you'll find the implementations of the collection interfaces
 
 * unique keys
 * unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
+* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * a map's contents can be viewed as a set of keys, collection of values, or set of key-value mappings
 * the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
 * general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
@@ -198,14 +198,28 @@ Below you'll find the implementations of the collection interfaces
 
 `HashMap`
 
+* not ordered
+* permits null values and null key
+* don't set the initial capacity too high if iteration performance is important
+* useful for counting by the key, local cache
+* fail-fast iterator
+* the `Collections.synchronizedMap(new HashMap(...));` provides synchronization
 * [https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html)
 
 `LinkedHashMap`
 
+* insertion order
+* in access-ordered linked hash maps, merely querying the map with `get` is a structural modification and affects iteration order
+* fail-fast iterator
+* the `Collections.synchronizedMap(new LinkedHashMap(...));` provides synchronization
 *[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedHashMap.html)
 
 `TreeMap`
 
+* elements are ordered using their natural ordering, or by a Comparator provided at creation time
+* element comparison is done using `compareTo()` method and not `equals` like in the Set interface
+* fail-fast iterator
+* the `Collections.synchronizedSortedMap(new TreeMap(...));` provides synchronization
 *[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
 
 ## Time complexity matrix
