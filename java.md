@@ -14,7 +14,7 @@ nav_order: 2
 
 JVM takes care of memory management leaving only some configuration decisions to developers.
 
-## Describe Stack and Heap
+## Stack and Heap
 
 These are the two memory spaces in JVM.
 
@@ -73,11 +73,6 @@ Manual selection of a garbage collector:
 are required;
 * `fully concurrent` collector when response time is a high priority.
 
-## Read more
-
-* [How Java memory management works – a quick introduction](https://codesoapbox.dev/how-java-memory-management-works-a-quick-introduction/)
-* [Introduction to Garbage Collection Tuning](https://docs.oracle.com/en/java/javase/17/gctuning/introduction-garbage-collection-tuning.html#GUID-326EB4CF-8C8C-4267-8355-21AB04F0D304)
-
 # Data structures
 
 ## Lists
@@ -117,8 +112,6 @@ are required;
 `TreeMap`
 
 ## Time complexity matrix
-
-The following table is based on the [Runtime Complexity of Java Collections](https://gist.github.com/psayre23/c30a821239f4818b0709)gist.
 
 | List                 | add()                      | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
 |:---------------------|:---------------------------|:---------------------------|:---------------------------|:-----------|:---------------------------|:--------------------------|

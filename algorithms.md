@@ -12,8 +12,6 @@ nav_order: 3
 
 # Time complexity of array sorting algorithms
 
-The following table is based on the [Array Sorting Algorithms](https://www.bigocheatsheet.com/) table.
-
 | Algorithm      | Worst case scenario                | 
 |:---------------|:-----------------------------------|
 | Quicksort      | *O(n^2)*{: .text-red-200 }         | 
