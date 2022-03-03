@@ -134,8 +134,10 @@ Below you'll find the implementations of the collection interfaces
 | CopyOnWriteArrayList | O(n)                            | O(n)                       | *O(1)*{: .text-green-000 } | O(n)       | *O(1)*{: .text-green-000 } | Array                     |
 
 (*) O(1) if a copy is not needed
+{: .fs-1 }
 
 (**) O(n) if `add(index i)`
+{: .fs-1 }
 
 ## Set
 
