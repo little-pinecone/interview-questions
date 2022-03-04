@@ -373,6 +373,62 @@ _Time complexity_
 
 # Generics
 
+* Enable types to be parameters when defining classes, interfaces and methods:
+
+```java
+public class Box<T> {
+    // T stands for "Type"
+    private T t;
+
+    public void set(T t) { this.t = t; }
+    public T get() { return t; }
+}
+```
+
+* Eliminate casting:
+
+```java
+List list = new ArrayList();
+list.add("hello");
+String s = (String) list.get(0);
+```
+
+```java
+List<String> list = new ArrayList<String>();
+list.add("hello");
+String s = list.get(0); // no cast
+```
+
+* Provide type checks at compile time making code more stable.
+
+**Type Parameter Naming Conventions**
+
+* E - Element (used extensively by the Java Collections Framework)
+* K - Key
+* N - Number
+* T - Type
+* V - Value
+* S,U,V etc. - 2nd, 3rd, 4th types
+* ? - wildcard
+
+**Type erasure**
+
+* replace all type parameters in generic types with their bounds or Object if the type parameters are unbounded,
+* insert type casts if necessary to preserve type safety,
+* generate bridge methods to preserve polymorphism in extended generic types.
+
+**Restrictions**
+
+* Cannot Instantiate Generic Types with Primitive Types
+* Cannot Create Instances of Type Parameters
+* Cannot Declare Static Fields Whose Types are Type Parameters
+* Cannot Use Casts or instanceof With Parameterized Types
+* Cannot Create Arrays of Parameterized Types
+* Cannot Create, Catch, or Throw Objects of Parameterized Types
+* Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
+
+[Questions and Exercises: Generics](https://docs.oracle.com/javase/tutorial/java/generics/QandE/generics-questions.html)
+
 # Concurrent processing
 
 *Speedups for parallel compared to sequential forms are common but not guaranteed.
