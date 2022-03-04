@@ -88,7 +88,11 @@ implementation to make sure you won't get `UnsupportedOperationException` by cal
 4. The `Collections.synchronized…` methods provides synchronization. e.g. `Collections.synchronizedSet(...);`.
 5. Fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification.
 
-Below you'll find the implementations of the collection interfaces
+A simple diagram comparing selected aspects of the most used collections:
+
+![simple collection comparison](assets/img/java-collections-custom-dagram.jpg)
+
+Below you'll find short descriptions of the implementations of the collection interfaces.
 
 ## List
 
