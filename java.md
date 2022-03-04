@@ -95,7 +95,7 @@ Below you'll find the implementations of the collection interfaces
 * insertion order
 * duplicate values allowed
 * we control where in the list each element is inserted and can access elements by their index
-* the `List.of()` and `List.copyOf` methods return unmodifiable sets
+* the `List.of()` and `List.copyOf` methods return unmodifiable lists
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
 
 ---
@@ -129,6 +129,7 @@ _Special-purpose implementations_
 * all mutative operations are implemented by making a fresh copy
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html)
 
+---
 **Time complexity**
 
 | List                 | add()                           | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
@@ -203,6 +204,7 @@ _Concurrent implementations_
 * iterating in ascending order is faster that in descending order
 *[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
 
+---
 **Time complexity**
 
 | Set                   | add()                          | remove()                       | contains()                     | next()                         | size()                     | Underlying data structure                                                         |
@@ -219,7 +221,7 @@ _Concurrent implementations_
 * unique keys
 * unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
 * a map's contents can be viewed as a set of keys (`keySet`), collection of values (`values`), or set of key-value mappings (`entrySet`)
-* the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
+* the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable maps
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html)
 
 ---
@@ -275,7 +277,7 @@ or maintaining proxy objects (e.g. maintaining a proxy object for each object in
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/WeakHashMap.html)
 
 ---
-_Concurent implementations_
+_Concurrent implementations_
 
 **ConcurrentHashMap**
 
@@ -293,6 +295,7 @@ for locking the entire table in a way that prevents all access
 * weakly consistent iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListMap.html)
 
+---
 **Time complexity**
 
 | Map                   | get()                          | containsKey()                  | next()                         | Underlying data structure |
@@ -310,10 +313,14 @@ for locking the entire table in a way that prevents all access
 
 * Queue: usually FIFO, whatever the ordering used, the head of the queue is the element that would be removed by a call to remove or poll
 * Dequeue: both FIFO or LIFO, all new elements can be inserted, retrieved and removed at both ends
-* general-purpose implementations: `PriorityQueue`, `ArrayDeque`, `LinkedList`
-* concurrent implementations: `ConcurrentLinkedQueue`, `LinkedBlockingQueue`, `ArrayBlockingQueue`, 
-`PriorityBlockingQueue`, `DelayQueue`. `SynchronousQueue`, `LinkedBlockingDeque`, `LinkedTransferQueue`
 * [Queue javadoc](https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html), [Dequeue javadoc](https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html)
+
+---
+_General-purpose implementations_
+
+**LinkedList**
+
+* see [List](#List)
 
 **PriorityQueue**
 
@@ -330,8 +337,28 @@ for locking the entire table in a way that prevents all access
 * doesn't permit the null element
 * faster than `Stack` when used as a stack, faster than `LinkedList` when used as a queue
 * fail-fast iterator
-*  [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayDeque.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayDeque.html)
 
+---
+_Concurrent implementations_
+
+**ConcurrentLinkedQueue**
+
+**LinkedBlockingQueue**
+
+**ArrayBlockingQueue**
+
+**PriorityBlockingQueue**
+
+**DelayQueue**
+
+**SynchronousQueue**
+
+**LinkedBlockingDeque**
+
+**LinkedTransferQueue**
+
+---
 **Time complexity matrix**
 
 | Queue                 | offer()                        | peek()                     | poll()                         | remove()                   | size()                     | Underlying data structure |
