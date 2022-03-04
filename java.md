@@ -18,7 +18,7 @@ JVM takes care of memory management leaving only some configuration decisions to
 
 These are the two memory spaces in JVM.
 
-`Stack`
+**Stack**
 
 1. Created for each thread, therefore thread safe.
 2. Stores local variables, references to the objects on the heap, methods.
@@ -26,7 +26,7 @@ These are the two memory spaces in JVM.
 4. Easy, fast access.
 5. `StackOverFlowError` when resources are exhausted, the available memory can be configured with the `-Xss` option.
 
-`Heap`
+**Heap**
 
 1. Created with an application, it's shared among all threads.
 2. Stores the objects and their fields.
@@ -40,13 +40,13 @@ options.
 
 Heap memory stores objects according to their age.
 
-`Young Generation`
+**Young Generation**
 
 1. Stores new objects.
 2. Is cleared with `minor garbage collection`.
 3. If an object lives long enough it is promoted to Old Generation.
 
-`Old Generation`
+**Old Generation**
 
 1. Stores the objects promoted from Young Generation.
 2. Is cleared with `major garbage collection`.
