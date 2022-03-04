@@ -130,7 +130,7 @@ _Special-purpose implementations_
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html)
 
 ---
-**Time complexity**
+_Time complexity_
 
 | List                 | add()                           | remove()                   | get()                      | contains() | next()                     | Underlying data structure |
 |:---------------------|:--------------------------------|:---------------------------|:---------------------------|:-----------|:---------------------------|:--------------------------|
@@ -205,7 +205,7 @@ _Concurrent implementations_
 *[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
 
 ---
-**Time complexity**
+_Time complexity_
 
 | Set                   | add()                          | remove()                       | contains()                     | next()                         | size()                     | Underlying data structure                                                         |
 |:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:-------------------------------|:---------------------------|:----------------------------------------------------------------------------------|
@@ -296,7 +296,7 @@ for locking the entire table in a way that prevents all access
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListMap.html)
 
 ---
-**Time complexity**
+_Time complexity_
 
 | Map                   | get()                          | containsKey()                  | next()                         | Underlying data structure |
 |:----------------------|:-------------------------------|:-------------------------------|:-------------------------------|:--------------------------|
@@ -320,21 +320,21 @@ _General-purpose implementations_
 
 **LinkedList**
 
-* see [List](#List)
+* see [List](#list)
 
 **PriorityQueue**
 
-* heap implementation of an unbounded priority queue
-* not ordered, use `Arrays.sort(pq.toArray())` if you need ordered traversal
+* heap implementation
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
-* doesn't permit the null element
+* iterator doesn't guarantee order, use `Arrays.sort(pq.toArray())` if you need ordered traversal
+* doesn't permit null elements
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/PriorityQueue.html)
 
 **ArrayDeque**
 
 * efficient, resizable array implementation of the Deque interface
 * has no capacity restrictions, grows as necessary to support usage
-* doesn't permit the null element
+* doesn't permit null elements
 * faster than `Stack` when used as a stack, faster than `LinkedList` when used as a queue
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayDeque.html)
@@ -342,24 +342,18 @@ _General-purpose implementations_
 ---
 _Concurrent implementations_
 
-**ConcurrentLinkedQueue**
-
-**LinkedBlockingQueue**
-
-**ArrayBlockingQueue**
-
-**PriorityBlockingQueue**
-
-**DelayQueue**
-
-**SynchronousQueue**
-
-**LinkedBlockingDeque**
-
-**LinkedTransferQueue**
+[ConcurrentLinkedQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentLinkedQueue.html),
+[ConcurrentLinkedDequeue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentLinkedDeque.html),
+[LinkedBlockingQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/LinkedBlockingQueue.html),
+[LinkedBlockingDequeue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/LinkedBlockingDeque.html),
+[ArrayBlockingQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ArrayBlockingQueue.html),
+[PriorityBlockingQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/PriorityBlockingQueue.html),
+[DelayQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/DelayQueue.html),
+[SynchronousQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/SynchronousQueue.html),
+[LinkedTransferQueue](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/LinkedTransferQueue.html),
 
 ---
-**Time complexity matrix**
+_Time complexity_
 
 | Queue                 | offer()                        | peek()                     | poll()                         | remove()                   | size()                     | Underlying data structure |
 |:----------------------|:-------------------------------|:---------------------------|:-------------------------------|:---------------------------|:---------------------------|:--------------------------|
