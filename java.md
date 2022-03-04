@@ -377,7 +377,7 @@ _Time complexity_
 
 ```java
 public class Box<T> {
-    // T stands for "Type"
+    
     private T t;
 
     public void set(T t) { this.t = t; }
@@ -429,7 +429,7 @@ String s = list.get(0); // no cast
 
 [Questions and Exercises: Generics](https://docs.oracle.com/javase/tutorial/java/generics/QandE/generics-questions.html)
 
-# Concurrent processing
+# Parallel processing
 
 *Speedups for parallel compared to sequential forms are common but not guaranteed.
 Parallel operations involving brief functions on small maps may execute more slowly than sequential forms if the

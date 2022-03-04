@@ -14,3 +14,4 @@ Below are given notable sources from which data was gathered:
 * [Official Java tutorial on basic concepts](https://docs.oracle.com/javase/tutorial/java/)
 * [Official Java tutorial on Collection Interfaces](https://docs.oracle.com/javase/tutorial/collections/interfaces/index.html)
 * [Official Java tutorial on Generics](https://docs.oracle.com/javase/tutorial/java/generics/index.html)
+* [Lesson: Aggregate Operations](https://docs.oracle.com/javase/tutorial/collections/streams/index.html)
