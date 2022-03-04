@@ -206,7 +206,7 @@ _Concurrent implementations_
 * elements are ordered using their natural ordering, or by a Comparator provided at creation time
 * doesn't permit the null element
 * iterating in ascending order is faster that in descending order
-*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListSet.html)
 
 ---
 _Time complexity_
