@@ -84,7 +84,9 @@ General facts:
 1. Note, that a `Map` is not a *true* `Collection`. However, it's generally discussed among other collections for the sake of simplicity.
 2. Collection interfaces are `generic`. Therefore, we should specify the type of object contained in the collection we're declaring.
 3. The modification operations in each interface are designated optional. Consult documentation of the selected 
-implementation to make sure you won't get `UnsupportedOperationException` by calling a method that isn't implemented. 
+implementation to make sure you won't get `UnsupportedOperationException` by calling a method that isn't implemented.
+4. The `Collections.synchronized…` methods provides synchronization. e.g. `Collections.synchronizedSet(...);`.
+5. Fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification.
 
 Below you'll find the implementations of the collection interfaces
 
@@ -93,12 +95,11 @@ Below you'll find the implementations of the collection interfaces
 * insertion order
 * duplicate values allowed
 * we control where in the list each element is inserted and can access elements by their index
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `List.of()` and `List.copyOf` methods return unmodifiable sets
-* the `Collections.synchronizedList(...);` provides synchronization
-* general-purpose implementations: `ArrayList`, `LinkedList`
-* special-purpose implementations: `CopyOnWriteArrayList`
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
+
+---
+_General-purpose implementations_
 
 **ArrayList**
 
@@ -115,6 +116,9 @@ Below you'll find the implementations of the collection interfaces
 * when accessed through the Queue interface, acts as a FIFO queue
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/LinkedList.html)
+
+---
+_Special-purpose implementations_
 
 **CopyOnWriteArrayList**
 
@@ -143,13 +147,11 @@ Below you'll find the implementations of the collection interfaces
 
 * unique values
 * unspecified behaviour if the value of an element is changed in a manner that affects `equals` (caution when storing mutable objects)
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * the `Set.of()` and `Set.copyOf` methods return unmodifiable sets
-* * the `Collections.synchronizedSet(...);` provides synchronization
-* general-purpose implementations: `HashSet`, `LinkedHashSet`, `TreeSet`
-* special-purpose implementations: `EnumSet`, `CopyOnWriteArraySet`
-* concurrent implementations: `ConcurrentSkipListSet`
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)
+
+---
+_General-purpose implementations_
 
 **HashSet**
 
@@ -175,6 +177,9 @@ Below you'll find the implementations of the collection interfaces
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html)
 
+---
+_Special-purpose implementations_
+
 **EnumSet**
 
 * all elements must come from a single enum type
@@ -186,6 +191,9 @@ Below you'll find the implementations of the collection interfaces
 
 * uses an internal `CopyOnWriteArrayList` for all of its operations. Thus, it shares the same basic properties.
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/CopyOnWriteArraySet.html)
+
+---
+_Concurrent implementations_
 
 **ConcurrentSkipListSet**
 
@@ -210,14 +218,12 @@ Below you'll find the implementations of the collection interfaces
 
 * unique keys
 * unspecified behaviour if the key is changed in a manner that affects `equals` (caution when using mutable objects as keys)
-* fail-fast behavior of an iterator cannot be guaranteed in the presence of unsynchronized concurrent modification
 * a map's contents can be viewed as a set of keys (`keySet`), collection of values (`values`), or set of key-value mappings (`entrySet`)
 * the `Map.of()`, `Map.copyOf` and `Map.ofEntries` methods return unmodifiable sets
-* the `Collections.synchronizedMap(...);` provides synchronization
-* general-purpose implementations: `HashMap`, `LinkedHashMap`, `TreeMap`
-* special-purpose implementations: `EnumSet`, `WeakHashMap`, `IdentityHashMap`
-* concurrent implementations: `ConcurrentHashMap`, `ConcurrentSkipListMap`
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html)
+
+---
+_General-purpose implementations_
 
 **HashMap**
 
@@ -242,6 +248,9 @@ Below you'll find the implementations of the collection interfaces
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html)
 
+---
+_Special-purpose implementations_
+
 **EnumMap**
 
 * all keys must come from a single enum type
@@ -265,12 +274,10 @@ or maintaining proxy objects (e.g. maintaining a proxy object for each object in
 * fail-fast iterator
 * [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/WeakHashMap.html)
 
-**ConcurrentHashMap**
+---
+_Concurent implementations_
 
-*Speedups for parallel compared to sequential forms are common but not guaranteed. 
-Parallel operations involving brief functions on small maps may execute more slowly than sequential forms if the 
-underlying work to parallelize the computation is more expensive than the computation itself. 
-Similarly, parallelization may not lead to much actual parallelism if all processors are busy performing unrelated tasks.*
+**ConcurrentHashMap**
 
 * even though all operations are thread-safe, retrieval operations do not entail locking, and there is not any support 
 for locking the entire table in a way that prevents all access
@@ -284,7 +291,7 @@ for locking the entire table in a way that prevents all access
 * doesn't permit null keys or values
 * iterating keys in ascending order is faster that in descending order
 * weakly consistent iterator
-*[javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListMap.html)
+* [javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ConcurrentSkipListMap.html)
 
 **Time complexity**
 
@@ -340,3 +347,10 @@ for locking the entire table in a way that prevents all access
 | SynchronousQueue      | *O(1)*{: .text-green-000 }     | *O(1)*{: .text-green-000 } | *O(1)*{: .text-green-000 }     | O(n)                       | *O(1)*{: .text-green-000 } | None!                     |
 
 # Generics
+
+# Concurrent processing
+
+*Speedups for parallel compared to sequential forms are common but not guaranteed.
+Parallel operations involving brief functions on small maps may execute more slowly than sequential forms if the
+underlying work to parallelize the computation is more expensive than the computation itself.
+Similarly, parallelization may not lead to much actual parallelism if all processors are busy performing unrelated tasks.*
