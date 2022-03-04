@@ -27,3 +27,10 @@ nav_order: 3
 | Radix Sort     | *O(nk)*{: .text-green-000 }        |
 | Counting Sort  | *O(n+k)*{: .text-green-000 }       |
 | Cubesort       | *O(n log(n))*{: .text-yellow-200 } |
+
+# Big O complexity chart
+
+![time complexity chart](assets/img/time-complexity-graph.png)
+
+[source](https://en.wikipedia.org/wiki/Time_complexity)
+{: .fs-2 }
