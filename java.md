@@ -419,13 +419,15 @@ String s = list.get(0); // no cast
 
 **Restrictions**
 
-* Cannot Instantiate Generic Types with Primitive Types
-* Cannot Create Instances of Type Parameters
-* Cannot Declare Static Fields Whose Types are Type Parameters
-* Cannot Use Casts or instanceof With Parameterized Types
-* Cannot Create Arrays of Parameterized Types
-* Cannot Create, Catch, or Throw Objects of Parameterized Types
-* Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
+With generics, you can't:
+
+* instantiate Generic Types with Primitive Types
+* create Instances of Type Parameters
+* declare Static Fields Whose Types are Type Parameters
+* use Casts or instanceof With Parameterized Types
+* create Arrays of Parameterized Types
+* create, Catch, or Throw Objects of Parameterized Types
+* overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
 
 [Questions and Exercises: Generics](https://docs.oracle.com/javase/tutorial/java/generics/QandE/generics-questions.html)
 
