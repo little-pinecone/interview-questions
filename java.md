@@ -75,7 +75,8 @@ are required;
 
 # Collections
 
-The core collection interfaces are shown in the image below:
+The core [collection interfaces](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/doc-files/coll-overview.html)
+are shown in the image below:
 
 ![core collection interfaces screenshot](assets/img/core-collection-interfaces.png)
 
