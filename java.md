@@ -438,3 +438,7 @@ With generics, you can't:
 Parallel operations involving brief functions on small maps may execute more slowly than sequential forms if the
 underlying work to parallelize the computation is more expensive than the computation itself.
 Similarly, parallelization may not lead to much actual parallelism if all processors are busy performing unrelated tasks.*
+
+# Functional interfaces
+
+[Reference](https://coderstea.in/post/java/be-more-functional-with-javas-functional-interfaces/)
